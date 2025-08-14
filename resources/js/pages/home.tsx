@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react';
-import type { FC } from 'react';
+import { type FC, useRef } from 'react';
 import { Facebook, Globe, Linkedin, Megaphone, Send, Twitter, Atom, Wind, Database, Flame, SquareCode, RefreshCcw, ChevronDown } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, useScroll, useTransform, AnimatePresence, useInView } from 'motion/react';
 
 type IconType = FC<{ className?: string }>;
 
@@ -31,114 +31,38 @@ const stack: StackItem[] = [
     { name: 'PostgreSQL', Icon: Database, classes: 'border-indigo-400/30 bg-gradient-to-br from-indigo-500/15 to-indigo-500/5 text-indigo-100', dot: 'bg-indigo-400' },
 ] as const;
 
-const AnimatedNamePath: FC = () => {
+const GradualSpacing: FC<{ text: string; className?: string }> = ({ text, className }) => {
+    const ref = useRef<HTMLParagraphElement | null>(null);
+    const isInView = useInView(ref, { once: true });
     return (
-        <div className="w-full max-w-3xl">
-            <h1 className="sr-only">Ibrahim Alshekh</h1>
-            <motion.svg
-                viewBox="0 0 1200 200"
-                preserveAspectRatio="none"
-                className="mx-auto h-24 w-full sm:h-28 md:h-36"
-                initial="hidden"
-                animate="visible"
-            >
-                <defs>
-                    <linearGradient id="nameStroke" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9" />
-                        <stop offset="100%" stopColor="#ffffff" stopOpacity="0.5" />
-                    </linearGradient>
-                    <linearGradient id="nameFill" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stopColor="#ffffff" />
-                        <stop offset="100%" stopColor="#d4d4d4" />
-                    </linearGradient>
-                    <filter id="blur" x="-10%" y="-10%" width="120%" height="120%">
-                        <feGaussianBlur stdDeviation="8" />
-                    </filter>
-                    <path id="name-curve" d="M20,120 C300,10 900,190 1180,80" />
-
-                    {/* Shimmer gradient and mask for animated text highlight */}
-                    <linearGradient id="shineGradient" x1="0" y1="0" x2="300" y2="0" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
-                        <stop offset="50%" stopColor="#ffffff" stopOpacity="0.95" />
-                        <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
-                    </linearGradient>
-                    <mask id="shine-mask" x="0" y="0" width="1200" height="200" maskUnits="userSpaceOnUse">
-                        <motion.rect
-                            x="-300"
-                            y="0"
-                            width="300"
-                            height="200"
-                            fill="url(#shineGradient)"
-                            animate={{ x: [-300, 1500] }}
-                            transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut' }}
-                        />
-                    </mask>
-                </defs>
-
-                {/* Glow trail behind the text */}
-                <motion.path
-                    d="M20,120 C300,10 900,190 1180,80"
-                    fill="none"
-                    stroke="#22d3ee"
-                    strokeOpacity="0.2"
-                    strokeWidth="10"
-                    filter="url(#blur)"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: [0.15, 0.35, 0.15] }}
-                    transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
-                />
-
-                {/* Main curve draw-in */}
-                <motion.path
-                    d="M20,120 C300,10 900,190 1180,80"
-                    fill="none"
-                    stroke="url(#nameStroke)"
-                    strokeWidth="2"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 0.9 }}
-                    transition={{ duration: 1.6, ease: 'easeInOut' }}
-                />
-
-                {/* Animated text along the curve */}
-                <g>
-                    {/* Base text with slight stroke for readability; subtle drift along the path */}
-                    <text
-                        fontSize="56"
-                        className="font-semibold tracking-tight"
-                        fill="url(#nameFill)"
-                        stroke="#ffffff"
-                        strokeOpacity="0.15"
-                        strokeWidth="1"
+        <div className="flex justify-center">
+            <AnimatePresence>
+                {text.split('').map((char, i) => (
+                    <motion.p
+                        // Attach the inView ref to the first letter element
+                        ref={i === 0 ? ref : undefined}
+                        key={`${char}-${i}`}
+                        initial={{ opacity: 0, x: -18 }}
+                        animate={isInView ? { opacity: 1, x: 0 } : {}}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5, delay: i * 0.08 }}
+                        className={
+                            [
+                                'text-center font-bold tracking-tighter',
+                                // Default sizes, can be overridden via className
+                                'text-3xl sm:text-5xl md:text-6xl md:leading-[4rem]',
+                                className ?? '',
+                            ].join(' ')
+                        }
                     >
-                        <motion.textPath
-                            href="#name-curve"
-                            startOffset="50%"
-                            textAnchor="middle"
-                            dominantBaseline="middle"
-                            animate={{ startOffset: ['49%', '51%', '49%'] }}
-                            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-                        >
-                            Ibrahim Alshekh
-                        </motion.textPath>
-                    </text>
-
-                    {/* Shimmer highlight pass over the text */}
-                    <text
-                        fontSize="56"
-                        className="font-semibold tracking-tight"
-                        fill="#ffffff"
-                        opacity="0.9"
-                        mask="url(#shine-mask)"
-                    >
-                        <textPath href="#name-curve" startOffset="50%" textAnchor="middle" dominantBaseline="middle">
-                            Ibrahim Alshekh
-                        </textPath>
-                    </text>
-                </g>
-            </motion.svg>
+                        {char === ' ' ? <span>&nbsp;</span> : char}
+                    </motion.p>
+                ))}
+            </AnimatePresence>
         </div>
     );
 };
+
 
 const Home: FC = () => {
     // Scroll-driven parallax for background layers
@@ -225,7 +149,7 @@ const Home: FC = () => {
                         <span>Laravel · Inertia.js · React · TypeScript · Tailwind CSS · PostgreSQL</span>
                     </div>
 
-                    <AnimatedNamePath />
+                    <GradualSpacing text="Ibrahim Alshekh" />
                     <motion.p
                         className="mx-auto mt-4 max-w-2xl text-balance text-base text-white/70 sm:text-lg"
                         initial={{ opacity: 0, y: 10 }}
