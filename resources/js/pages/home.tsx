@@ -1,109 +1,19 @@
 import { Head } from '@inertiajs/react';
-import { type FC, useRef } from 'react';
-import { Facebook, Globe, Linkedin, Megaphone, Send, Twitter } from 'lucide-react';
-import { AnimatePresence, motion, useInView, useScroll, useTransform } from 'motion/react';
-import ThreeDCard from '@/components/3DCard'; // Images for 3D cards
-import bgBox from '../../images/box.png';
-import laravelImg from '../../images/laravel.png';
-import inertiaImg from '../../images/inertia.png';
-import reactImg from '../../images/reactjs.png';
-import typescriptImg from '../../images/typescript.png';
-import tailwindImg from '../../images/tailwindcss.png';
-import postgresqlImg from '../../images/postgress.png';
-import { type IconType, type StackItem } from '@/types/app';
-
-
-const SocialLink: FC<{ href: string; label: string; Icon: IconType }> = ({ href, label, Icon }) => (
-    <motion.a
-        href={href}
-        target="_blank"
-        rel="noreferrer noopener"
-        aria-label={label}
-        className="group inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/90 shadow-sm backdrop-blur transition hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:outline-none"
-        whileHover={{ y: -2, scale: 1.03 }}
-        whileTap={{ scale: 0.98 }}
-    >
-        <Icon className="h-4 w-4 text-white/80 transition group-hover:scale-110 group-hover:text-white" />
-        <span className="hidden sm:inline">{label}</span>
-    </motion.a>
-);
-
-
-const stack: StackItem[] = [
-    {
-        name: 'Laravel',
-        logo: laravelImg,
-        classes: 'border-red-400/30 bg-gradient-to-br from-red-500/15 to-red-500/5 text-red-100',
-        dot: 'bg-red-400',
-    },
-    {
-        name: 'Inertia.js',
-        logo: inertiaImg,
-        classes: 'border-fuchsia-400/30 bg-gradient-to-br from-fuchsia-500/15 to-fuchsia-500/5 text-fuchsia-100',
-        dot: 'bg-fuchsia-400',
-    },
-    {
-        name: 'React',
-        logo: reactImg,
-        classes: 'border-cyan-400/30 bg-gradient-to-br from-cyan-500/15 to-cyan-500/5 text-cyan-100',
-        dot: 'bg-cyan-400',
-    },
-    {
-        name: 'TypeScript',
-        logo: typescriptImg,
-        classes: 'border-blue-400/30 bg-gradient-to-br from-blue-500/15 to-blue-500/5 text-blue-100',
-        dot: 'bg-blue-400',
-    },
-    {
-        name: 'Tailwind CSS',
-        logo: tailwindImg,
-        classes: 'border-teal-400/30 bg-gradient-to-br from-teal-500/15 to-teal-500/5 text-teal-100',
-        dot: 'bg-teal-400',
-    },
-    {
-        name: 'PostgreSQL',
-        logo: postgresqlImg,
-        classes: 'border-indigo-400/30 bg-gradient-to-br from-indigo-500/15 to-indigo-500/5 text-indigo-100',
-        dot: 'bg-indigo-400',
-    },
-] as const;
-
-const GradualSpacing: FC<{ text: string; className?: string }> = ({ text, className }) => {
-    const ref = useRef<HTMLParagraphElement | null>(null);
-    const isInView = useInView(ref, { once: true });
-    return (
-        <div className="flex justify-center">
-            <AnimatePresence>
-                {text.split('').map((char, i) => (
-                    <motion.p
-                        // Attach the inView ref to the first letter element
-                        ref={i === 0 ? ref : undefined}
-                        key={`${char}-${i}`}
-                        initial={{ opacity: 0, x: -18 }}
-                        animate={isInView ? { opacity: 1, x: 0 } : {}}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5, delay: i * 0.08 }}
-                        className={[
-                            'text-center font-bold tracking-tighter',
-                            // Default sizes, can be overridden via className
-                            'text-3xl sm:text-5xl md:text-6xl md:leading-[4rem]',
-                            className ?? '',
-                        ].join(' ')}
-                    >
-                        {char === ' ' ? <span>&nbsp;</span> : char}
-                    </motion.p>
-                ))}
-            </AnimatePresence>
-        </div>
-    );
-};
+import { type FC } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import ThreeDCard from '@/components/3DCard';
+import SocialLink from '@/components/SocialLink';
+import GradualSpacing from '@/components/GradualSpacing';
+import { stack } from '@/data/stack';
+import { socialLinks } from '@/data/socialLinks';
+import { cards, bgBox } from '@/data/featureCards';
 
 const Home: FC = () => {
     // Scroll-driven parallax for background layers
     const { scrollY } = useScroll();
     const parallaxTop = useTransform(scrollY, [0, 600], [0, -80]);
     const parallaxBottom = useTransform(scrollY, [0, 600], [0, 60]);
-    const parallaxChips = useTransform(scrollY, [0, 600], [0, -20]);
+    const parallaxChips = useTransform(scrollY, [0, 60], [0, -20]);
 
     // Variants for scroll-reveal
     const containerVariants = {
@@ -189,24 +99,11 @@ const Home: FC = () => {
                         animate="show"
                         variants={containerVariants}
                     >
-                        <motion.div variants={itemVariants}>
-                            <SocialLink href="https://x.com/IbrahimAlshekh_" label="X (Twitter)" Icon={Twitter} />
-                        </motion.div>
-                        <motion.div variants={itemVariants}>
-                            <SocialLink href="https://www.facebook.com/Ibrahim0Alshekh/" label="Facebook" Icon={Facebook} />
-                        </motion.div>
-                        <motion.div variants={itemVariants}>
-                            <SocialLink href="https://www.linkedin.com/in/ibrahim-shekh-mohammed-0275b5152/" label="LinkedIn" Icon={Linkedin} />
-                        </motion.div>
-                        <motion.div variants={itemVariants}>
-                            <SocialLink href="https://qabilah.com/profile/ibrahimalshekh" label="Qabilah.com" Icon={Globe} />
-                        </motion.div>
-                        <motion.div variants={itemVariants}>
-                            <SocialLink href="https://t.me/ibrahim_alshekh" label="Telegram" Icon={Send} />
-                        </motion.div>
-                        <motion.div variants={itemVariants}>
-                            <SocialLink href="https://whatsapp.com/channel/0029VbAtsF62kNFkMAFBBJ06" label="WhatsApp Channel" Icon={Megaphone} />
-                        </motion.div>
+                        {socialLinks.map(({ href, label, Icon }) => (
+                            <motion.div key={label} variants={itemVariants}>
+                                <SocialLink href={href} label={label} Icon={Icon} />
+                            </motion.div>
+                        ))}
                     </motion.div>
 
                     <motion.div
@@ -216,61 +113,19 @@ const Home: FC = () => {
                         viewport={{ once: true, amount: 0.2 }}
                         variants={containerVariants}
                     >
-                        <motion.div variants={itemVariants} className="w-full">
-                            <ThreeDCard
-                                className="w-full"
-                                width="100%"
-                                height={240}
-                                backgroundImage={bgBox}
-                                image={laravelImg}
-                                title="Laravel"
-                                description="Robust backend framework with expressive Eloquent ORM, queues, mail, and a rich ecosystem — ideal for rapid, maintainable product delivery."
-                            />
-                        </motion.div>
-                        <motion.div variants={itemVariants} className="w-full">
-                            <ThreeDCard
-                                className="w-full"
-                                width="100%"
-                                height={240}
-                                backgroundImage={bgBox}
-                                image={inertiaImg}
-                                title="Inertia.js"
-                                description="A glue between Laravel and React — no API boilerplate, server-driven routing, and a single codebase for faster iteration."
-                            />
-                        </motion.div>
-                        <motion.div variants={itemVariants} className="w-full">
-                            <ThreeDCard
-                                className="w-full"
-                                width="100%"
-                                height={240}
-                                backgroundImage={bgBox}
-                                image={reactImg}
-                                title="React + TypeScript"
-                                description="Component-driven UI with type safety for refactor-friendly, reliable frontends and developer velocity."
-                            />
-                        </motion.div>
-                        <motion.div variants={itemVariants} className="w-full">
-                            <ThreeDCard
-                                className="w-full"
-                                width="100%"
-                                height={240}
-                                backgroundImage={bgBox}
-                                image={typescriptImg}
-                                title="TypeScript"
-                                description="Strong typing for a more productive development experience, with static analysis and IDE support for a robust codebase."
-                            />
-                        </motion.div>
-                        <motion.div variants={itemVariants} className="w-full">
-                            <ThreeDCard
-                                className="w-full"
-                                width="100%"
-                                height={240}
-                                backgroundImage={bgBox}
-                                image={tailwindImg}
-                                title="Tailwind CSS"
-                                description="Utility‑first styling that accelerates shipping consistent, responsive designs without context switching."
-                            />
-                        </motion.div>
+                        {cards.map(({ image, title, description }) => (
+                            <motion.div key={title} variants={itemVariants} className="w-full">
+                                <ThreeDCard
+                                    className="w-full"
+                                    width="100%"
+                                    height={240}
+                                    backgroundImage={bgBox}
+                                    image={image}
+                                    title={title}
+                                    description={description}
+                                />
+                            </motion.div>
+                        ))}
                     </motion.div>
 
                 </motion.main>
