@@ -10,8 +10,8 @@ import reactImg from '../../images/reactjs.png';
 import typescriptImg from '../../images/typescript.png';
 import tailwindImg from '../../images/tailwindcss.png';
 import postgresqlImg from '../../images/postgress.png';
+import { type IconType, type StackItem } from '@/types/app';
 
-type IconType = FC<{ className?: string }>;
 
 const SocialLink: FC<{ href: string; label: string; Icon: IconType }> = ({ href, label, Icon }) => (
     <motion.a
@@ -28,7 +28,6 @@ const SocialLink: FC<{ href: string; label: string; Icon: IconType }> = ({ href,
     </motion.a>
 );
 
-type StackItem = { name: string; logo: string; classes: string; dot: string };
 
 const stack: StackItem[] = [
     {
