@@ -1,6 +1,6 @@
 import { Head } from '@inertiajs/react';
 import { type FC } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion } from 'motion/react';
 import ThreeDCard from '@/components/3DCard';
 import SocialLink from '@/components/SocialLink';
 import GradualSpacing from '@/components/GradualSpacing';
@@ -9,10 +9,6 @@ import { socialLinks } from '@/data/socialLinks';
 import { cards, bgBox } from '@/data/featureCards';
 
 const Home: FC = () => {
-    // Scroll-driven parallax for background layers
-    const { scrollY } = useScroll();
-    const parallaxTop = useTransform(scrollY, [0, 600], [0, -80]);
-    const parallaxBottom = useTransform(scrollY, [0, 600], [0, 60]);
 
     // Variants for scroll-reveal
     const containerVariants = {
@@ -20,12 +16,12 @@ const Home: FC = () => {
         show: {
             opacity: 1,
             y: 0,
-            transition: { staggerChildren: 0.06, delayChildren: 0.1 },
+            transition: { staggerChildren: 0.1, delayChildren: 0.2 },
         },
     } as const;
 
     const itemVariants = {
-        hidden: { opacity: 0, y: 10, scale: 0.98 },
+        hidden: { opacity: 0, y: 5, scale: 0.98 },
         show: { opacity: 1, y: 0, scale: 1 },
     } as const;
 
@@ -35,33 +31,35 @@ const Home: FC = () => {
 
             {/* Background */}
             <div className="relative overflow-hidden bg-neutral-950 text-white">
-                {/* Animated gradient orbs with subtle parallax */}
+                {/* Animated gradient orbs with subtle parallax + mouse drift */}
                 <motion.div
                     className="pointer-events-none absolute -top-1/3 -left-1/3 h-[80vh] w-[80vh] animate-[spin_45s_linear_infinite] rounded-full bg-[conic-gradient(at_top_left,_#06b6d4,_#6366f1,_#22c55e,_#06b6d4)] opacity-30 blur-3xl"
-                    style={{ y: parallaxTop }}
                     aria-hidden
                 />
                 <motion.div
                     className="pointer-events-none absolute -right-1/4 -bottom-1/4 h-[70vh] w-[70vh] animate-[spin_60s_linear_infinite_reverse] rounded-full bg-[conic-gradient(at_bottom_right,_#f97316,_#ef4444,_#eab308,_#f97316)] opacity-20 blur-3xl"
-                    style={{ y: parallaxBottom }}
                     aria-hidden
                 />
-                {/* Subtle grid */}
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(transparent_1px,rgba(255,255,255,0.02)_1px)] [background-size:32px_32px]" />
+                {/* Extra orbs for richness */}
+                <motion.div
+                    className="pointer-events-none absolute -top-24 right-[-8rem] h-[45vh] w-[45vh] animate-[spin_70s_linear_infinite] rounded-full bg-[conic-gradient(at_top_right,_#22c55e,_#06b6d4,_#0ea5e9,_#22c55e)] opacity-15 blur-3xl"
+                    aria-hidden
+                />
+                <motion.div
+                    className="pointer-events-none absolute -left-32 top-1/2 h-[36vh] w-[36vh] animate-[spin_80s_linear_infinite_reverse] rounded-full bg-[conic-gradient(at_left,_#a78bfa,_#22d3ee,_#38bdf8,_#a78bfa)] opacity-10 blur-3xl"
+                    aria-hidden
+                />
+                <motion.div
+                    className="pointer-events-none absolute top-1/3 left-1/2 h-[28vh] w-[28vh] animate-[spin_90s_linear_infinite] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[conic-gradient(at_center,_#eab308,_#f97316,_#ef4444,_#eab308)] opacity-10 blur-3xl"
+                    aria-hidden
+                />
 
                 {/* Hero */}
                 <motion.main
                     id="top"
                     className="relative mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 py-24 text-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: 'easeOut' }}
-                >
-                    <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 shadow-sm backdrop-blur">
-                        <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-                        <span>Laravel · Inertia.js · React · TypeScript · Tailwind CSS · PostgreSQL</span>
-                    </div>
 
+                >
                     <GradualSpacing text="Ibrahim Alshekh" />
                     <motion.p
                         className="mx-auto mt-4 max-w-2xl text-base text-balance text-white/70 sm:text-lg"
