@@ -86,18 +86,17 @@ const Home: FC = () => {
                     </motion.div>
 
                     <motion.div
-                        className="mx-auto mt-40 grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5"
+                        className="mx-auto mt-40 flex flex-wrap items-center justify-center gap-4"
                         initial="hidden"
                         whileInView="show"
                         viewport={{ once: true, amount: 0.2 }}
                         variants={containerVariants}
                     >
                         {cards.map(({ image, title, description }) => (
-                            <motion.div key={title} variants={itemVariants} className="w-full">
+                            <motion.div key={title} variants={itemVariants}>
                                 <ThreeDCard
-                                    className="w-full"
-                                    width="100%"
-                                    height={240}
+                                    width="200"
+                                    height={200}
                                     backgroundImage={bgBox}
                                     image={image}
                                     title={title}

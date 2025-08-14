@@ -147,6 +147,7 @@ const ThreeDCard: FC<ThreeDCardProps> = ({
 
     const wrapperStyle: React.CSSProperties = useMemo(() => ({
         width: `${width}px`,
+        maxWidth: `${width}px`,
         height: `${height}px`,
     }), [width, height]);
 
@@ -197,7 +198,7 @@ const ThreeDCard: FC<ThreeDCardProps> = ({
                     <motion.img
                         src={image}
                         alt=""
-                        className="pointer-events-none absolute left-1/2 top-1/2 h-[60%] w-auto -translate-x-1/2 -translate-y-1/2 rounded-xl object-contain"
+                        className="pointer-events-none absolute left-1/2 top-1/2 w-[70%] h-auto -translate-x-1/2 -translate-y-1/2 rounded-xl object-contain"
                         style={{
                             transformStyle: 'preserve-3d',
                             translateZ: fgZ,
