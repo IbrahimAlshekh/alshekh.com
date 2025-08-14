@@ -13,7 +13,6 @@ const Home: FC = () => {
     const { scrollY } = useScroll();
     const parallaxTop = useTransform(scrollY, [0, 600], [0, -80]);
     const parallaxBottom = useTransform(scrollY, [0, 600], [0, 60]);
-    const parallaxChips = useTransform(scrollY, [0, 60], [0, -20]);
 
     // Variants for scroll-reveal
     const containerVariants = {
@@ -49,24 +48,6 @@ const Home: FC = () => {
                 />
                 {/* Subtle grid */}
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(transparent_1px,rgba(255,255,255,0.02)_1px)] [background-size:32px_32px]" />
-
-                {/* Tech stack decorative background chips (float slightly on scroll) */}
-                <motion.div aria-hidden className="pointer-events-none absolute inset-0 select-none" style={{ y: parallaxChips }}>
-                    <div className="mx-auto flex h-full max-w-5xl flex-wrap items-center justify-center gap-4 opacity-10 blur-[1px]">
-                        {Array.from({ length: 3 }).map((_, row) => (
-                            <div key={row} className="flex w-full flex-wrap items-center justify-center gap-3">
-                                {stack.map((item, i) => (
-                                    <span
-                                        key={`${row}-${i}`}
-                                        className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] tracking-wide text-white/80 uppercase"
-                                    >
-                                        {item.name}
-                                    </span>
-                                ))}
-                            </div>
-                        ))}
-                    </div>
-                </motion.div>
 
                 {/* Hero */}
                 <motion.main
