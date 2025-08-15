@@ -16,10 +16,18 @@ nixPkgs = ["python311Packages.supervisor"]
 [phases.build]
 # Prepare supervisor and runtime assets
 cmds = [
-  "mkdir -p /etc/supervisor/conf.d/",
-  "cp /assets/worker-*.conf /etc/supervisor/conf.d/",
-  "cp /assets/supervisord.conf /etc/supervisord.conf",
-  "chmod +x /assets/start.sh"
+    "mkdir -p /etc/supervisor/conf.d/",
+    "cp /assets/worker-*.conf /etc/supervisor/conf.d/",
+    "cp /assets/supervisord.conf /etc/supervisord.conf",
+    "chmod +x /assets/start.sh",
+    "composer install --no-interaction --prefer-dist --optimize-autoloader",
+    "npm ci || npm install",
+    "cp .env.example .env",
+    "php artisan key:generate --force",
+    "npm run build",
+    "php artisan config:cache",
+    "php artisan route:cache",
+    "php artisan view:cache"
 ]
 
 [start]
@@ -28,24 +36,12 @@ cmd = "/assets/start.sh"
 [staticAssets]
 "start.sh" = '''
 #!/bin/bash
-set -euo pipefail
 
-# Transform the nginx configuration template into the final config
-# Nixpacks will set $PORT; we defaulted it to 80 above
+# Transform the nginx configuration
 node /assets/scripts/prestart.mjs /assets/nginx.template.conf /etc/nginx.conf
 
-# Ensure Laravel storage is writable (in case runtime image changed ownership)
-mkdir -p /app/storage /app/bootstrap/cache
-chown -R www-data:www-data /app/storage /app/bootstrap/cache || true
-chmod -R 775 /app/storage /app/bootstrap/cache || true
-
-# Run migrations if requested via env (optional best practice)
-if [ "${RUN_MIGRATIONS:-false}" = "true" ]; then
-  php /app/artisan migrate --force || true
-fi
-
-# Start supervisor in foreground
-exec supervisord -c /etc/supervisord.conf -n
+# Start supervisor
+supervisord -c /etc/supervisord.conf -n
 '''
 
 "supervisord.conf" = '''
