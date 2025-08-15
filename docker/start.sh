@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+cd /var/www/html
+
 # Wait for database to be ready
 echo "Waiting for database connection..."
 php artisan tinker --execute="DB::connection()->getPdo();" || {
@@ -15,10 +17,13 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# Set proper permissions
-chown -R www-data:www-data /app/storage /app/bootstrap/cache
-chmod -R 775 /app/storage /app/bootstrap/cache
+# Start Inertia SSR in the background
+echo "Starting Inertia SSR server..."
+php artisan inertia:start-ssr > /var/www/html/storage/logs/ssr.log 2>&1 &
 
-# Start supervisor
-echo "Starting supervisor..."
-exec supervisord -c /etc/supervisor/conf.d/supervisord.conf
+# Wait a moment for SSR to initialize
+sleep 3
+
+# Start NGINX Unit in the foreground
+echo "Starting NGINX Unit..."
+exec unitd --no-daemon

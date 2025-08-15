@@ -4,12 +4,14 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: docker/Dockerfile
     ports:
-      - "8080:8000"
+      - "${APP_PORT:-8000}:8000"
     environment:
       - APP_ENV=production
-      - APP_DEBUG=false
+      - APP_DEBUG=true
+      - APP_KEY=${APP_KEY:-}
+      - SSR_URL=app
       - DB_CONNECTION=pgsql
       - DB_HOST=db
       - DB_PORT=5432
@@ -33,7 +35,7 @@ services:
       - app-network
 
   db:
-    image: supabase/postgres:latest
+    image: supabase/postgres:15.8.1.131
     environment:
       - POSTGRES_DB=${DB_DATABASE:-laravel}
       - POSTGRES_USER=${DB_USERNAME:-laravel}

@@ -1,4 +1,4 @@
-FROM unit:1.34.1-php8.3
+FROM unit:1.34.1-php8.4
 
 RUN apt update && apt install -y \
     curl unzip git libicu-dev libzip-dev libpng-dev libjpeg-dev libfreetype6-dev libssl-dev libpq-dev \
@@ -22,24 +22,28 @@ RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache
 
 RUN chown -R unit:unit /var/www/html/storage /var/www/html/bootstrap/cache && chmod -R 775 /var/www/html/storage
 
-COPY . .
+COPY .. .
 
 # Install PHP dependencies
 RUN composer install --prefer-dist --optimize-autoloader --no-interaction
 
-# Install Node.js dependencies and build assets
+# Install Node.js dependencies and build assets (including SSR)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
+    && npm install --production \
     && npm ci \
-    && npm run build \
+    && npm run build:ssr \
     && npm cache clean --force \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 RUN chown -R unit:unit storage bootstrap/cache && chmod -R 775 storage bootstrap/cache
 
-COPY unit.json /docker-entrypoint.d/unit.json
+COPY docker/unit.json /docker-entrypoint.d/unit.json
+COPY docker/start.sh /start.sh
+
+RUN chmod +x /start.sh
 
 EXPOSE 8000
 
-CMD ["unitd", "--no-daemon"]
+CMD ["/start.sh"]

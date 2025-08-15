@@ -53,7 +53,7 @@ Thumbs.db
 *.log
 
 # Docker files (don't copy into container)
-Dockerfile
+docker/Dockerfile
 docker-compose.yml
 .dockerignore
 
