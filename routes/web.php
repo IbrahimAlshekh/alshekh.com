@@ -3,13 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('welcome', function () {
-    echo config('inertia.ssr.url');
-    $response = Inertia::render('welcome');
-    dd($response);
-    return 'test';
-});
-
 Route::get('/', function () {
     return Inertia::render('home');
 })->name('home');
