@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.9"
 
 services:
   app:
@@ -9,7 +9,7 @@ services:
       - "${APP_PORT:-8000}:8000"
     environment:
       - APP_ENV=production
-      - APP_DEBUG=true
+      - APP_DEBUG=${APP_DEBUG:-false}
       - APP_KEY=${APP_KEY:-}
       - SSR_URL=app
       - DB_CONNECTION=pgsql
@@ -22,14 +22,16 @@ services:
       - SESSION_DRIVER=redis
       - QUEUE_CONNECTION=redis
       - REDIS_HOST=redis
-      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+      - REDIS_PASSWORD=${REDIS_PASSWORD:?Redis password must be set}
       - REDIS_PORT=6379
     volumes:
       - storage:/var/www/html/storage/app
       - logs:/var/www/html/storage/logs
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     restart: unless-stopped
     networks:
       - app-network
@@ -46,15 +48,29 @@ services:
     restart: unless-stopped
     networks:
       - app-network
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${DB_USERNAME:-laravel} -d ${DB_DATABASE:-laravel}"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: redis:7-alpine
-    command: redis-server --appendonly yes --requirepass "${REDIS_PASSWORD:-}"
+    command: redis-server --appendonly yes --requirepass "${REDIS_PASSWORD}"
     volumes:
       - redis_data:/data
     restart: unless-stopped
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:
