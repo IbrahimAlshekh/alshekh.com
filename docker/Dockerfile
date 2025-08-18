@@ -1,7 +1,17 @@
-FROM unit:1.34.1-php8.4
+FROM php:8.4-fpm
 
-RUN apt update && apt install -y \
-    curl unzip git libicu-dev libzip-dev libpng-dev libjpeg-dev libfreetype6-dev libssl-dev libpq-dev \
+RUN apt-get update && apt-get install -y \
+    nginx \
+    curl \
+    unzip \
+    git \
+    libicu-dev \
+    libzip-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libssl-dev \
+    libpq-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) pcntl opcache pdo pdo_pgsql intl zip gd exif ftp bcmath \
     && pecl install redis \
@@ -20,7 +30,8 @@ WORKDIR /var/www/html
 
 RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache
 
-RUN chown -R unit:unit /var/www/html/storage /var/www/html/bootstrap/cache && chmod -R 775 /var/www/html/storage
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && \
+    chmod -R 775 /var/www/html/storage
 
 COPY .. .
 
@@ -37,11 +48,13 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN chown -R unit:unit storage bootstrap/cache && chmod -R 775 storage bootstrap/cache
+RUN chown -R www-data:www-data storage bootstrap/cache && chmod -R 775 storage bootstrap/cache
 
-COPY docker/unit.json /docker-entrypoint.d/unit.json
+# Copy Nginx configuration
+COPY docker/nginx.conf /etc/nginx/sites-available/default
+
+# Create start script
 COPY docker/start.sh /start.sh
-
 RUN chmod +x /start.sh
 
 EXPOSE 8000

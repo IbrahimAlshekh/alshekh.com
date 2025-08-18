@@ -24,6 +24,10 @@ php artisan inertia:start-ssr > /var/www/html/storage/logs/ssr.log 2>&1 &
 # Wait a moment for SSR to initialize
 sleep 3
 
-# Start NGINX Unit in the foreground
-echo "Starting NGINX Unit..."
-exec unitd --no-daemon
+# Start PHP-FPM in the background
+echo "Starting PHP-FPM..."
+php-fpm -D
+
+# Start Nginx in the foreground
+echo "Starting Nginx..."
+nginx -g "daemon off;"
