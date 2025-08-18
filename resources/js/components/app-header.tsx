@@ -94,7 +94,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                         </Sheet>
                     </div>
 
-                    <Link href="/dashboard" prefetch className="flex items-center space-x-2">
+                    <Link href={route('dashboard')} prefetch className="flex items-center space-x-2">
                         <AppLogo />
                     </Link>
 
@@ -169,7 +169,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         ) : (
-                            <Link href="/login">
+                            <Link href={route('login')}>
                                 <Button variant="outline" size="sm">
                                     Login
                                 </Button>
