@@ -1,0 +1,20 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "/opt/homebrew/Cellar/php/8.4.11/bin/php",
+            "args": [
+                "/Users/ibrahimalshekh/projects/php/laravel/alshekh.com/artisan",
+                "boost:mcp"
+            ]
+        },
+        "herd": {
+            "command": "/opt/homebrew/Cellar/php/8.4.11/bin/php",
+            "args": [
+                "/Applications/Herd.app/Contents/Resources/herd-mcp.phar"
+            ],
+            "env": {
+                "SITE_PATH": "/Users/ibrahimalshekh/projects/php/laravel/alshekh.com"
+            }
+        }
+    }
+}
