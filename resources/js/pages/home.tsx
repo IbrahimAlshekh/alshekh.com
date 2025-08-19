@@ -31,27 +31,23 @@ const Home: FC = () => {
             <Head title="Ibrahim Alshekh" />
 
             {/* Background */}
-            <div className="relative overflow-hidden bg-neutral-950 text-white">
+            <div className="overflow-hidden bg-neutral-950 text-white">
                 {/* Animated gradient orbs with subtle parallax + mouse drift */}
                 <motion.div
-                    className="pointer-events-none absolute -top-1/3 -left-1/3 h-[80vh] w-[80vh] animate-[spin_45s_linear_infinite] rounded-full bg-[conic-gradient(at_top_left,_#06b6d4,_#6366f1,_#22c55e,_#06b6d4)] opacity-30 blur-3xl"
-                    aria-hidden
-                />
-                <motion.div
-                    className="pointer-events-none absolute -right-1/4 -bottom-1/4 h-[70vh] w-[70vh] animate-[spin_60s_linear_infinite_reverse] rounded-full bg-[conic-gradient(at_bottom_right,_#f97316,_#ef4444,_#eab308,_#f97316)] opacity-20 blur-3xl"
+                    className="pointer-events-none fixed -right-1/4 -bottom-1/4 h-[70vh] w-[50vh] animate-[spin_14s_linear_infinite_reverse] rounded-full bg-[conic-gradient(at_bottom_right,_#f97316,_#ef4444,_#eab308,_#f97316)] opacity-20 blur-3xl"
                     aria-hidden
                 />
                 {/* Extra orbs for richness */}
                 <motion.div
-                    className="pointer-events-none absolute -top-24 right-[-8rem] h-[45vh] w-[45vh] animate-[spin_70s_linear_infinite] rounded-full bg-[conic-gradient(at_top_right,_#22c55e,_#06b6d4,_#0ea5e9,_#22c55e)] opacity-15 blur-3xl"
+                    className="pointer-events-none fixed -top-80 right-0 h-[45vh] w-[25vh] animate-[spin_30s_linear_infinite] rounded-full bg-[conic-gradient(at_top_right,_#22c55e,_#06b6d4,_#0ea5e9,_#22c55e)] opacity-15 blur-3xl"
                     aria-hidden
                 />
                 <motion.div
-                    className="pointer-events-none absolute -left-32 top-1/2 h-[36vh] w-[36vh] animate-[spin_80s_linear_infinite_reverse] rounded-full bg-[conic-gradient(at_left,_#a78bfa,_#22d3ee,_#38bdf8,_#a78bfa)] opacity-10 blur-3xl"
+                    className="pointer-events-none fixed -left-32 top-1/2 h-[36vh] w-[56vh] animate-[spin_30s_linear_infinite_reverse] rounded-full bg-[conic-gradient(at_left,_#a78bfa,_#22d3ee,_#38bdf8,_#a78bfa)] opacity-10 blur-3xl"
                     aria-hidden
                 />
                 <motion.div
-                    className="pointer-events-none absolute top-1/3 left-1/2 h-[28vh] w-[28vh] animate-[spin_90s_linear_infinite] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[conic-gradient(at_center,_#eab308,_#f97316,_#ef4444,_#eab308)] opacity-10 blur-3xl"
+                    className="pointer-events-none fixed top-1/4 left-1/2 h-[28vh] w-[48vh] animate-[spin_30s_linear_infinite] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[conic-gradient(at_center,_#eab308,_#f97316,_#ef4444,_#eab308)] opacity-10 blur-3xl"
                     aria-hidden
                 />
 
