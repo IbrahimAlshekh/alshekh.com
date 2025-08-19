@@ -7,6 +7,7 @@ import GradualSpacing from '@/components/GradualSpacing';
 import { stack } from '@/data/stack';
 import { socialLinks } from '@/data/socialLinks';
 import { cards, bgBox } from '@/data/featureCards';
+import GuestLayout from '@layouts/guest-layout';
 
 const Home: FC = () => {
 
@@ -26,7 +27,7 @@ const Home: FC = () => {
     } as const;
 
     return (
-        <>
+        <GuestLayout>
             <Head title="Ibrahim Alshekh" />
 
             {/* Background */}
@@ -198,7 +199,7 @@ const Home: FC = () => {
                     </motion.div>
                 </section>
             </div>
-        </>
+        </GuestLayout>
     );
 };
 
