@@ -158,7 +158,7 @@ const ThreeDCard: FC<ThreeDCardProps> = ({
                 'will-change-transform',
                 'transition-shadow',
                 active ? 'drop-shadow-2xl' : 'drop-shadow-md',
-                active ? 'z-[999]' : 'z-auto',
+                active ? 'z-[29]' : 'z-auto',
                 className ?? '',
             ].join(' ')}
             style={wrapperStyle}
@@ -189,7 +189,6 @@ const ThreeDCard: FC<ThreeDCardProps> = ({
                         className="absolute inset-0 rounded-4xl bg-center bg-no-repeat bg-contain"
                         style={{
                             backgroundImage: `url(${backgroundImage})`,
-                            boxShadow: active ? '0 25px 60px -20px rgba(0,0,0,0.4)' : '0 10px 25px -10px rgba(0,0,0,0.25)',
                             transform: 'translateZ(0px)',
                         }}
                     />
@@ -202,7 +201,6 @@ const ThreeDCard: FC<ThreeDCardProps> = ({
                         style={{
                             transformStyle: 'preserve-3d',
                             translateZ: fgZ,
-                            filter: active ? 'drop-shadow(0 0px 30px rgba(0,0,0,0.40))' : 'drop-shadow(0 10px 15px rgba(0,0,0,0.25))',
                         }}
                         initial={{ opacity: 0.95 }}
                         animate={active ? { scale: 1.15, opacity: 1 } : { scale: 1, opacity: 0.95 }}
@@ -214,28 +212,27 @@ const ThreeDCard: FC<ThreeDCardProps> = ({
                         {active && hasPanel && (
                             <motion.div
                                 key="reveal"
-                                className={`absolute ${placement === 'bottom' ? 'bottom-0' : 'top-0'} left-0 right-0 z-[9999]`}
+                                className={`absolute ${placement === 'bottom' ? 'bottom-0' : 'top-0'} left-0 rounded-2xl bg-white/70 dark:bg-black/70  backdrop-blur-3xl border-2 border-black/10 dark:border-white/10`}
                                 style={{ transformStyle: 'preserve-3d' }}
-                                initial={{ opacity: 0, y: placement === 'bottom' ? '120%' : '-120%', translateZ: 12 }}
-                                animate={{ opacity: 1, y: placement === 'bottom' ? '105%' : '-105%', translateZ: 12 }}
-                                exit={{ opacity: 0, y: placement === 'bottom' ? '120%' : '-120%', translateZ: 12 }}
+                                initial={{ opacity: 0, y: placement === 'bottom' ? '100%' : '-100%', translateZ: 1 }}
+                                animate={{ opacity: 1, y: placement === 'bottom' ? '100%' : '-100%', translateZ: 1 }}
+                                exit={{ opacity: 0, y: placement === 'bottom' ? '100%' : '-100%', translateZ: 1 }}
                                 transition={{ type: 'spring', stiffness: 180, damping: 22, mass: 0.7 }}
                             >
                                 {/* Panel content outside the frame (measured for placement decision) */}
                                 <div className="relative w-full overflow-visible rounded-2xl">
                                     <motion.div
                                         ref={panelContentRef}
-                                        className="relative w-full rounded-2xl bg-white/10 p-4 shadow-xl backdrop-blur-md dark:bg-black/60 border border-white/20"
+                                        className="relative w-full p-4 "
                                         initial={{ clipPath: 'inset(0 0 100% 0 round 16px)' }}
                                         animate={{ clipPath: 'inset(0 0 0% 0 round 16px)' }}
                                         exit={{ clipPath: 'inset(0 0 100% 0 round 16px)' }}
                                         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                                        style={{ border: '1px solid rgba(255,255,255,0.18)' }}
                                     >
-                                        <div className="flex w-full flex-col gap-2">
+                                        <div className="flex w-full flex-col justify-center items-center gap-3">
                                             {title && title.trim().length > 0 && (
                                                 <motion.h3
-                                                    className="text-lg font-semibold text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]"
+                                                    className="text-lg font-semibold text-foreground dark:text-white drop-shadow-sm dark:drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]"
                                                     initial={{ y: -8, opacity: 0 }}
                                                     animate={{ y: 0, opacity: 1 }}
                                                     transition={{ delay: 0.1, duration: 0.3 }}
@@ -245,7 +242,7 @@ const ThreeDCard: FC<ThreeDCardProps> = ({
                                             )}
                                             {description && description.trim().length > 0 && (
                                                 <motion.p
-                                                    className="text-sm text-white/90"
+                                                    className="text-sm text-foreground/90 dark:text-white/90"
                                                     initial={{ y: -6, opacity: 0 }}
                                                     animate={{ y: 0, opacity: 1 }}
                                                     transition={{ delay: 0.16, duration: 0.3 }}
@@ -258,7 +255,7 @@ const ThreeDCard: FC<ThreeDCardProps> = ({
                                                     href={link}
                                                     target="_blank"
                                                     rel="noreferrer noopener"
-                                                    className="mt-1 inline-flex w-fit items-center gap-2 rounded-md border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white shadow-sm backdrop-blur transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                                                    className="mt-1 inline-flex w-fit items-center gap-2 rounded-md border border-border/40 bg-white/10 hover:bg-black/10 px-3 py-1.5 text-xs font-medium text-foreground dark:text-white backdrop-blur transition dark:hover:bg-white/20"
                                                     initial={{ y: -4, opacity: 0 }}
                                                     animate={{ y: 0, opacity: 1 }}
                                                     transition={{ delay: 0.22, duration: 0.25 }}

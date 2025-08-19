@@ -31,7 +31,7 @@ const Home: FC = () => {
             <Head title="Ibrahim Alshekh" />
 
             {/* Background */}
-            <div className="overflow-hidden bg-neutral-950 text-white">
+            <div className="overflow-hidden bg-background dark:bg-neutral-950 text-foreground dark:text-white">
                 {/* Animated gradient orbs with subtle parallax + mouse drift */}
                 <motion.div
                     className="pointer-events-none fixed -right-1/4 -bottom-1/4 h-[70vh] w-[50vh] animate-[spin_14s_linear_infinite_reverse] rounded-full bg-[conic-gradient(at_bottom_right,_#f97316,_#ef4444,_#eab308,_#f97316)] opacity-20 blur-3xl"
@@ -59,7 +59,7 @@ const Home: FC = () => {
                 >
                     <GradualSpacing text="Ibrahim Alshekh" />
                     <motion.p
-                        className="mx-auto mt-4 max-w-2xl text-base text-balance text-white/70 sm:text-lg"
+                        className="mx-auto mt-4 max-w-2xl text-base text-balance text-foreground/80 dark:text-white/70 sm:text-lg"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.5 }}
@@ -98,6 +98,7 @@ const Home: FC = () => {
                                     image={image}
                                     title={title}
                                     description={description}
+                                    link={`#${title.toLowerCase().replace(' ', '-')}`}
                                 />
                             </motion.div>
                         ))}
@@ -108,16 +109,16 @@ const Home: FC = () => {
                 {/* Tech Stack Section */}
                 <section id="tech" className="relative mx-auto w-full max-w-4xl px-6 py-10">
                     <motion.div
-                        className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-sm backdrop-blur sm:p-6"
+                        className="rounded-2xl border border-border/40 dark:border-white/10 bg-card/40 dark:bg-white/5 p-4 shadow-sm backdrop-blur sm:p-6"
                         initial="hidden"
                         whileInView="show"
                         variants={containerVariants}
                     >
-                        <div className="mb-2 inline-flex items-censter gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
+                        <div className="mb-2 inline-flex items-censter gap-2 rounded-full border border-border/40 dark:border-white/10 bg-card/30 dark:bg-white/5 px-3 py-1 text-xs text-foreground/70 dark:text-white/70">
                             <span className="h-1.5 w-1.5 rounded-full bg-violet-400" />
                             <span>My Tech Stack</span>
                         </div>
-                        <p className="mb-4 text-sm leading-relaxed text-white/70">
+                        <p className="mb-4 text-sm leading-relaxed text-foreground/70 dark:text-white/70">
                             My preferred toolkit — full‑stack balance with backend muscle and frontend finesse. Laravel + PostgreSQL power the core,
                             Inertia keeps the bridge seamless, and React + TypeScript + Tailwind craft fast, elegant UIs. It covers most product
                             use‑cases without extra baggage.
@@ -133,7 +134,7 @@ const Home: FC = () => {
                                 >
                                     <span className={`h-1.5 w-1.5 rounded-full ${dot}`} />
                                    <img src={logo} alt={`${name} logo`} className="h-4 w-4" />
-                                    <span className="font-medium">{name}</span>
+                                    <span className="font-medium text-gray-600 dark:text-gray-100">{name}</span>
                                 </motion.span>
                             ))}
                         </div>
@@ -143,20 +144,20 @@ const Home: FC = () => {
                 {/* About / Description Section */}
                 <section id="about" className="relative mx-auto w-full max-w-4xl px-6 py-16">
                     <motion.div
-                        className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-sm backdrop-blur sm:p-8"
+                        className="rounded-2xl border border-border/40 dark:border-white/10 bg-card/40 dark:bg-white/5 p-6 shadow-sm backdrop-blur sm:p-8"
                         initial="hidden"
                         whileInView="show"
                         viewport={{ once: true, amount: 0.25 }}
                         variants={containerVariants}
                     >
-                        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
+                        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-border/40 dark:border-white/10 bg-card/30 dark:bg-white/5 px-3 py-1 text-xs text-foreground/70 dark:text-white/70">
                             <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
                             <span>About me</span>
                         </div>
-                        <motion.h2 className="text-2xl font-semibold text-balance text-white sm:text-3xl" variants={itemVariants}>
+                        <motion.h2 className="text-2xl font-semibold text-balance text-foreground dark:text-white sm:text-3xl" variants={itemVariants}>
                             Fullstack Developer & IT Manager with Expertise in PHP, Laravel, and Frontend Technologies
                         </motion.h2>
-                        <div className="prose prose-invert mt-4 max-w-none text-white/80">
+                        <div className="prose dark:prose-invert mt-4 max-w-none text-foreground/80 dark:text-white/80">
                             <motion.p variants={itemVariants}>
                                 I am an experienced Fullstack Developer and IT Manager with a strong background in software development, project
                                 management, and team leadership. I have a deep knowledge of both backend and frontend technologies, specializing in
@@ -170,10 +171,10 @@ const Home: FC = () => {
                                 real-time analysis, and automated workflows using Python. My ability to work under pressure, attention to detail, and
                                 clear communication have allowed me to consistently achieve excellent results.
                             </motion.p>
-                            <motion.h3 className="mt-8 text-xl font-semibold text-white" variants={itemVariants}>
+                            <motion.h3 className="mt-8 text-xl font-semibold text-foreground dark:text-white" variants={itemVariants}>
                                 Key areas of expertise:
                             </motion.h3>
-                            <ul className="mt-3 list-disc space-y-2 pl-5 text-white/85">
+                            <ul className="mt-3 list-disc space-y-2 pl-5 text-foreground/85 dark:text-white/85">
                                 {[
                                     'Fullstack Development (PHP, Laravel, React, Vue.js, Livewire)',
                                     'UI/UX Design and Prototyping with Figma',
@@ -186,7 +187,7 @@ const Home: FC = () => {
                                     </motion.li>
                                 ))}
                             </ul>
-                            <motion.p className="mt-6" variants={itemVariants}>
+                            <motion.p className="mt-6 text-foreground/80 dark:text-white/80" variants={itemVariants}>
                                 I am passionate about innovation, continuous improvement, and delivering solutions that drive business success.
                                 Currently, I am leading the IT department at Smartcon GmbH, focusing on advancing our IT infrastructure and mentoring
                                 a talented team of developers.
