@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\NewsletterSubscriber;
 use Exception;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 
 class NewsletterController extends Controller
 {
@@ -16,17 +16,14 @@ class NewsletterController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function subscribe(Request $request): JsonResponse
+    public function subscribe(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|max:255',
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'errors' => $validator->errors(),
-            ], 422);
+            return back()->withErrors($validator);
         }
 
         try {
@@ -41,17 +38,11 @@ class NewsletterController extends Controller
                         'subscribed_at' => now(),
                     ]);
 
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Your subscription has been reactivated!',
-                    ]);
+                    return back()->with('success', 'Your subscription has been reactivated!');
                 }
 
                 // Already actively subscribed
-                return response()->json([
-                    'success' => true,
-                    'message' => 'You are already subscribed to our newsletter!',
-                ]);
+                return back()->with('success', 'You are already subscribed to our newsletter!');
             }
 
             // Create new subscriber
@@ -60,16 +51,9 @@ class NewsletterController extends Controller
                 'subscribed_at' => now(),
             ]);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Thank you for subscribing to our newsletter!',
-            ]);
+            return back()->with('success', 'Thank you for subscribing to our newsletter!');
         } catch (Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while processing your subscription.',
-                'error' => $e->getMessage(),
-            ], 500);
+            return back()->with('error', 'An error occurred while processing your subscription.');
         }
     }
 }

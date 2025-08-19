@@ -1,37 +1,40 @@
 import { Button } from '@components/ui/button';
 import { Input } from '@components/ui/input';
 import { cn } from '@lib/utils';
-import { Link, router } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { Github, Heart, Send } from 'lucide-react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { toast } from 'sonner';
 
 interface AppFooterProps extends React.HTMLAttributes<HTMLDivElement> {
     variant?: 'header' | 'sidebar';
 }
 
+
 export function AppFooter({ variant = 'header', className, ...props }: AppFooterProps) {
-    const [email, setEmail] = useState('');
     const [subscribed, setSubscribed] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+
+    const form = useForm({
+        email: '',
+    });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setError(null);
-        setLoading(true);
 
-        router.post(route('newsletter.subscribe'), { email }, {
+        form.post(route('newsletter.subscribe'), {
             preserveState: true,
             onSuccess: () => {
                 setSubscribed(true);
-                setEmail('');
+                toast.success('Thank you for subscribing to our newsletter!');
+                form.reset();
             },
             onError: (errors) => {
-                setError(errors.email || 'Failed to subscribe. Please try again.');
-            },
-            onFinish: () => {
-                setLoading(false);
-            },
+                if (errors.email) {
+                    toast.error(errors.email);
+                } else {
+                    toast.error('An error occurred while processing your subscription.');
+                }
+            }
         });
     };
 
@@ -82,18 +85,18 @@ export function AppFooter({ variant = 'header', className, ...props }: AppFooter
                                     type="email"
                                     placeholder="your@email.com"
                                     className="max-w-xs"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    value={form.data.email}
+                                    onChange={(e) => form.setData('email', e.target.value)}
                                     required
-                                    disabled={loading}
+                                    disabled={form.processing}
                                 />
-                                <Button type="submit" size="sm" disabled={loading}>
+                                <Button type="submit" size="sm" disabled={form.processing}>
                                     <Send className="mr-2 h-4 w-4" />
                                     Subscribe
                                 </Button>
                             </div>
-                            {error && (
-                                <p className="text-sm text-red-500">{error}</p>
+                            {form.errors.email && (
+                                <p className="text-sm text-red-500">{form.errors.email}</p>
                             )}
                         </form>
                     )}
