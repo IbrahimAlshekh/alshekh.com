@@ -77,7 +77,7 @@ const ThreeDCard: FC<ThreeDCardProps> = ({ image, title, description, link, trig
                 onClick={onClick}
                 onPointerLeave={onPointerLeave}
                 onPointerEnter={onPointerEnter}
-                className={`group h-full w-full cursor-pointer overflow-hidden rounded-2xl border-2 bg-white/10 shadow-[0_70px_40px_-20px_rgba(0,0,0,0.2)] transition-all duration-300 ease-in-out outline-none dark:bg-black/20`}
+                className={`group h-full w-full cursor-pointer overflow-hidden rounded-2xl border-2 bg-white/10 shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out outline-none dark:bg-black/20`}
                 style={{
                     width: `${width}px`,
                     maxWidth: `${width}px`,
@@ -103,7 +103,7 @@ const ThreeDCard: FC<ThreeDCardProps> = ({ image, title, description, link, trig
                             >
                                 {title && title.trim().length > 0 && (
                                     <motion.h3
-                                        className="text-lg font-semibold text-gray-600 dark:text-gray-100 drop-shadow-sm"
+                                        className="text-lg font-semibold text-gray-600 dark:text-gray-300 drop-shadow-sm"
                                         initial={{ y: -8, opacity: 0 }}
                                         animate={{ y: 0, opacity: 1 }}
                                         transition={{ delay: 0.1, duration: 0.3 }}
@@ -113,7 +113,7 @@ const ThreeDCard: FC<ThreeDCardProps> = ({ image, title, description, link, trig
                                 )}
                                 {description && description.trim().length > 0 && (
                                     <motion.p
-                                        className="text-center text-sm text-gray-600 dark:text-gray-100 "
+                                        className="text-center text-gray-600 dark:text-gray-300 "
                                         initial={{ y: -6, opacity: 0 }}
                                         animate={{ y: 0, opacity: 1 }}
                                         transition={{ delay: 0.16, duration: 0.3 }}
@@ -126,7 +126,7 @@ const ThreeDCard: FC<ThreeDCardProps> = ({ image, title, description, link, trig
                                         href={link}
                                         target="_blank"
                                         rel="noreferrer noopener"
-                                        className="mt-1 inline-flex w-fit items-center gap-2 rounded-md border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-100  backdrop-blur transition hover:bg-white/20"
+                                        className="mt-1 inline-flex w-fit items-center gap-2 rounded-md border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-300  backdrop-blur transition hover:bg-white/20"
                                         initial={{ y: -4, opacity: 0 }}
                                         animate={{ y: 0, opacity: 1 }}
                                         transition={{ delay: 0.22, duration: 0.25 }}
