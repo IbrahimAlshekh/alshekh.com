@@ -51,11 +51,11 @@ export function GuestHeader() {
                     </div>
 
                     {/* Desktop Login Button */}
-                    <Link href={route('login')} className="hidden md:flex cursor-pointer">
-                        <Button variant="outline" size="sm">
-                            Login
-                        </Button>
-                    </Link>
+                    {/*<Link href={route('login')} className="hidden md:flex cursor-pointer">*/}
+                    {/*    <Button variant="outline" size="sm">*/}
+                    {/*        Login*/}
+                    {/*    </Button>*/}
+                    {/*</Link>*/}
 
                     {/* Mobile Drawer */}
                     <div className="md:hidden">
@@ -104,14 +104,14 @@ export function GuestHeader() {
                                         <ThemeToggle />
                                     </div>
 
-                                    <Link
-                                        href={route('login')}
-                                        className="w-full py-2"
-                                    >
-                                        <Button variant="outline" size="sm" className="w-full">
-                                            Login
-                                        </Button>
-                                    </Link>
+                                    {/*<Link*/}
+                                    {/*    href={route('login')}*/}
+                                    {/*    className="w-full py-2"*/}
+                                    {/*>*/}
+                                        {/*<Button variant="outline" size="sm" className="w-full">*/}
+                                        {/*    Login*/}
+                                        {/*</Button>*/}
+                                    {/*</Link>*/}
                                 </div>
 
                                 <DrawerFooter className="border-t border-border dark:border-sidebar-border/80">

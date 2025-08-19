@@ -92,8 +92,8 @@ const Home: FC = () => {
                         {cards.map(({ image, title, description }) => (
                             <motion.div key={title} variants={itemVariants}>
                                 <ThreeDCard
-                                    width="200"
-                                    height={220}
+                                    width="260"
+                                    height={260}
                                     image={image}
                                     title={title}
                                     description={description}

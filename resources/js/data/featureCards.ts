@@ -1,9 +1,9 @@
-import bgBox from '../../images/box.png';
-import laravelImg from '../../images/laravel.png';
-import inertiaImg from '../../images/inertia.png';
-import reactImg from '../../images/reactjs.png';
-import typescriptImg from '../../images/typescript.png';
-import tailwindImg from '../../images/tailwindcss.png';
+import postgressImage from '@images/postgress.png';
+import laravelImg from '@images/laravel.png';
+import inertiaImg from '@images/inertia.png';
+import reactImg from '@images/reactjs.png';
+import typescriptImg from '@images/typescript.png';
+import tailwindImg from '@images/tailwindcss.png';
 
 export type FeatureCard = {
     image: string;
@@ -42,6 +42,10 @@ export const cards: ReadonlyArray<FeatureCard> = [
         description:
             'Utility‑first styling that accelerates shipping consistent, responsive designs without context switching.',
     },
+    {
+        image: postgressImage,
+        title: 'PostgreSQL',
+        description:
+            'Robust database management system with a rich ecosystem — ideal for scalable, secure, and reliable product delivery.',
+    }
 ] as const;
-
-export { bgBox };
