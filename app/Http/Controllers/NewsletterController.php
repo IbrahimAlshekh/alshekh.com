@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\NewsletterSubscriber;
 use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Inertia\Inertia;
+use Inertia\Response;
+use Inertia\Ssr\Response as SsrResponse;
 
 class NewsletterController extends Controller
 {
@@ -16,7 +18,7 @@ class NewsletterController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function subscribe(Request $request)
+    public function subscribe(Request $request): Response|SsrResponse|RedirectResponse
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|max:255',
@@ -52,7 +54,7 @@ class NewsletterController extends Controller
             ]);
 
             return back()->with('success', 'Thank you for subscribing to our newsletter!');
-        } catch (Exception $e) {
+        } catch (Exception) {
             return back()->with('error', 'An error occurred while processing your subscription.');
         }
     }
