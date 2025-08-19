@@ -1,4 +1,4 @@
-import { Facebook, Globe, Linkedin, Megaphone, Send, Twitter } from 'lucide-react';
+import { Facebook, Github, Globe, Linkedin, Megaphone, Send, Twitter } from 'lucide-react';
 import type { IconType } from '@/types/app';
 
 export type SocialItem = {
@@ -8,6 +8,7 @@ export type SocialItem = {
 };
 
 export const socialLinks: SocialItem[] = [
+    { href: 'https://github.com/IbrahimAlshekh/alshekh.com', label: 'GitHub', Icon: Github },
     { href: 'https://x.com/IbrahimAlshekh_', label: 'X (Twitter)', Icon: Twitter },
     { href: 'https://www.facebook.com/Ibrahim0Alshekh/', label: 'Facebook', Icon: Facebook },
     { href: 'https://www.linkedin.com/in/ibrahim-shekh-mohammed-0275b5152/', label: 'LinkedIn', Icon: Linkedin },

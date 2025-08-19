@@ -1,5 +1,6 @@
 import { LucideIcon } from 'lucide-react';
 import type { Config } from 'ziggy-js';
+import {type PageProps} from '@inertiajs/inertia';
 
 export interface Auth {
     user: User;
@@ -22,7 +23,7 @@ export interface NavItem {
     isActive?: boolean;
 }
 
-export interface SharedData {
+export interface SharedData extends PageProps{
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
