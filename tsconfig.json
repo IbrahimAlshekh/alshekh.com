@@ -110,7 +110,16 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["./resources/js/*"],
-            "ziggy-js": ["./vendor/tightenco/ziggy"]
+            "ziggy-js": ["./vendor/tightenco/ziggy"],
+            "@resources/*": ["./resources/*"],
+            "@images/*": ["./resources/images/*"],
+            "@fonts/*": ["./resources/fonts/*"],
+            "@lib/*": ["./resources/js/lib/*"],
+            "@store/*": ["./resources/js/store/*"],
+            "@hooks/*": ["./resources/js/hooks/*"],
+            "@components/*": ["./resources/js/components/*"],
+            "@layouts/*": ["./resources/js/layouts/*"],
+            "@types/*": ["./resources/js/types/*"],
         },
         "jsx": "react-jsx"
     },
