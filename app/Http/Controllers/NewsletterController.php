@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\NewsletterSubscriber;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,10 +13,10 @@ class NewsletterController extends Controller
     /**
      * Handle a newsletter subscription request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function subscribe(Request $request)
+    public function subscribe(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|max:255',
@@ -58,15 +60,11 @@ class NewsletterController extends Controller
                 'subscribed_at' => now(),
             ]);
 
-            // In a production app, you might want to:
-            // - Send a welcome email
-            // - Integrate with a newsletter service like Mailchimp
-
             return response()->json([
                 'success' => true,
                 'message' => 'Thank you for subscribing to our newsletter!',
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred while processing your subscription.',
