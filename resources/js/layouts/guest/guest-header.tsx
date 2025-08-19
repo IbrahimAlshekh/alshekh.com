@@ -13,7 +13,7 @@ import {
 
 export function GuestHeader() {
     return (
-        <header className="border-b border-sidebar-border/80">
+        <header className="border-b sticky top-0 z-50 bg-black/50 backdrop-blur-xl border-sidebar-border/80">
             <div className="mx-auto flex h-16 items-center justify-between px-4 md:max-w-7xl">
                 <div className="flex items-center space-x-4">
                     <Link href="/" className="flex items-center space-x-2">
