@@ -6,7 +6,7 @@ import SocialLink from '@/components/SocialLink';
 import GradualSpacing from '@/components/GradualSpacing';
 import { stack } from '@/data/stack';
 import { socialLinks } from '@/data/socialLinks';
-import { cards, bgBox } from '@/data/featureCards';
+import { cards } from '@/data/featureCards';
 import GuestLayout from '@layouts/guest-layout';
 
 const Home: FC = () => {
@@ -93,12 +93,10 @@ const Home: FC = () => {
                             <motion.div key={title} variants={itemVariants}>
                                 <ThreeDCard
                                     width="200"
-                                    height={200}
-                                    backgroundImage={bgBox}
+                                    height={220}
                                     image={image}
                                     title={title}
                                     description={description}
-                                    link={`#${title.toLowerCase().replace(' ', '-')}`}
                                 />
                             </motion.div>
                         ))}
