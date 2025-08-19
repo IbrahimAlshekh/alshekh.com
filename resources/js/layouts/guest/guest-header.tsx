@@ -25,19 +25,19 @@ export function GuestHeader() {
                 <nav className="hidden md:flex items-center space-x-6">
                     <Link
                         href="#tech"
-                        className="text-sm font-medium transition-colors hover:text-primary"
+                        className="text-sm font-medium rounded-md px-3 py-1.5 transition-colors hover:bg-accent hover:text-primary"
                     >
                         Tech Stack
                     </Link>
                     <Link
                         href="#about"
-                        className="text-sm font-medium transition-colors hover:text-primary"
+                        className="text-sm font-medium rounded-md px-3 py-1.5 transition-colors hover:bg-accent hover:text-primary"
                     >
                         About
                     </Link>
                     <Link
                         href="#contact"
-                        className="text-sm font-medium transition-colors hover:text-primary"
+                        className="text-sm font-medium rounded-md px-3 py-1.5 transition-colors hover:bg-accent hover:text-primary"
                     >
                         Contact
                     </Link>
@@ -75,19 +75,19 @@ export function GuestHeader() {
                                     {/* Navigation Links */}
                                     <Link
                                         href="#tech"
-                                        className="text-sm font-medium transition-colors hover:text-primary py-2"
+                                        className="text-sm font-medium rounded-md px-3 py-2 transition-colors hover:bg-accent hover:text-primary"
                                     >
                                         Tech Stack
                                     </Link>
                                     <Link
                                         href="#about"
-                                        className="text-sm font-medium transition-colors hover:text-primary py-2"
+                                        className="text-sm font-medium rounded-md px-3 py-2 transition-colors hover:bg-accent hover:text-primary"
                                     >
                                         About
                                     </Link>
                                     <Link
                                         href="#contact"
-                                        className="text-sm font-medium transition-colors hover:text-primary py-2"
+                                        className="text-sm font-medium rounded-md px-3 py-2 transition-colors hover:bg-accent hover:text-primary"
                                     >
                                         Contact
                                     </Link>
@@ -105,13 +105,13 @@ export function GuestHeader() {
 
                                 <DrawerFooter className="border-t">
                                     <div className="flex justify-center space-x-4 py-2">
-                                        <a href="https://github.com/ibrahimalshekh" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                                        <a href="https://github.com/ibrahimalshekh" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center p-2 rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
                                             <Github className="h-5 w-5" />
                                         </a>
-                                        <a href="https://linkedin.com/in/ibrahimalshekh" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                                        <a href="https://linkedin.com/in/ibrahimalshekh" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center p-2 rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
                                             <Linkedin className="h-5 w-5" />
                                         </a>
-                                        <a href="https://whatsapp.com/channel/ibrahimalshekh" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                                        <a href="https://whatsapp.com/channel/ibrahimalshekh" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center p-2 rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
                                             <MessageSquare className="h-5 w-5" />
                                         </a>
                                     </div>
