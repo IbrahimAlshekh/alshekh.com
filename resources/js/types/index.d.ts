@@ -2,6 +2,13 @@ import { LucideIcon } from 'lucide-react';
 import type { Config } from 'ziggy-js';
 import {type PageProps} from '@inertiajs/inertia';
 
+export interface FlashMessages {
+    success?: string;
+    error?: string;
+    warning?: string;
+    status?: string;
+}
+
 export interface Auth {
     user: User;
 }
@@ -29,6 +36,7 @@ export interface SharedData extends PageProps{
     auth: Auth;
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
+    flash?: FlashMessages;
     [key: string]: unknown;
 }
 
