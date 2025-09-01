@@ -1,16 +1,9 @@
 import AppLogo from '@/components/app-logo';
 import { Button } from '@/components/ui/button';
 import { Link } from '@inertiajs/react';
-import { Github, Linkedin, Menu, X, MessageSquare } from 'lucide-react';
+import { Github, Linkedin, Menu, MessageSquare, X } from 'lucide-react';
 import ThemeToggle from '@/components/theme-toggle';
-import {
-    Drawer,
-    DrawerContent,
-    DrawerTrigger,
-    DrawerClose,
-    DrawerHeader,
-    DrawerFooter,
-} from '@/components/ui/drawer';
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTrigger } from '@/components/ui/drawer';
 
 export function GuestHeader() {
     return (
@@ -18,7 +11,7 @@ export function GuestHeader() {
             <div className="mx-auto flex h-16 items-center justify-between px-4 md:max-w-7xl">
                 <div className="flex items-center space-x-4">
                     <Link href="/" className="flex items-center space-x-2">
-                        {/*<AppLogo />*/}
+                        <AppLogo />
                     </Link>
                 </div>
 
