@@ -10,7 +10,6 @@ import { cards } from '@/data/featureCards';
 import GuestLayout from '@layouts/guest-layout';
 
 const Home: FC = () => {
-
     // Variants for scroll-reveal
     const containerVariants = {
         hidden: { opacity: 0, y: 16 },
@@ -31,7 +30,7 @@ const Home: FC = () => {
             <Head title="Ibrahim Alshekh" />
 
             {/* Background */}
-            <div className="overflow-hidden bg-background dark:bg-neutral-950 text-foreground dark:text-white">
+            <div className="overflow-hidden bg-background text-foreground dark:bg-neutral-950 dark:text-white">
                 {/* Animated gradient orbs with subtle parallax + mouse drift */}
                 <motion.div
                     className="pointer-events-none fixed -right-1/4 -bottom-1/4 h-[70vh] w-[50vh] animate-[spin_14s_linear_infinite_reverse] rounded-full bg-[conic-gradient(at_bottom_right,_#f97316,_#ef4444,_#eab308,_#f97316)] opacity-20 blur-3xl"
@@ -43,11 +42,11 @@ const Home: FC = () => {
                     aria-hidden
                 />
                 <motion.div
-                    className="pointer-events-none fixed -left-32 top-1/2 h-[36vh] w-[56vh] animate-[spin_30s_linear_infinite_reverse] rounded-full bg-[conic-gradient(at_left,_#a78bfa,_#22d3ee,_#38bdf8,_#a78bfa)] opacity-10 blur-3xl"
+                    className="pointer-events-none fixed top-1/2 -left-32 h-[36vh] w-[56vh] animate-[spin_30s_linear_infinite_reverse] rounded-full bg-[conic-gradient(at_left,_#a78bfa,_#22d3ee,_#38bdf8,_#a78bfa)] opacity-10 blur-3xl"
                     aria-hidden
                 />
                 <motion.div
-                    className="pointer-events-none fixed top-1/4 left-1/2 h-[28vh] w-[48vh] animate-[spin_30s_linear_infinite] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[conic-gradient(at_center,_#eab308,_#f97316,_#ef4444,_#eab308)] opacity-10 blur-3xl"
+                    className="pointer-events-none fixed top-1/4 left-1/2 h-[28vh] w-[48vh] -translate-x-1/2 -translate-y-1/2 animate-[spin_30s_linear_infinite] rounded-full bg-[conic-gradient(at_center,_#eab308,_#f97316,_#ef4444,_#eab308)] opacity-10 blur-3xl"
                     aria-hidden
                 />
 
@@ -55,11 +54,10 @@ const Home: FC = () => {
                 <motion.main
                     id="top"
                     className="relative mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 py-24 text-center"
-
                 >
                     <GradualSpacing text="Ibrahim Alshekh" />
                     <motion.p
-                        className="mx-auto mt-4 max-w-2xl text-base text-balance text-foreground/80 dark:text-white/70 sm:text-lg"
+                        className="mx-auto mt-4 max-w-2xl text-base text-balance text-foreground/80 sm:text-lg dark:text-white/70"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.5 }}
@@ -91,28 +89,22 @@ const Home: FC = () => {
                     >
                         {cards.map(({ image, title, description }) => (
                             <motion.div key={title} variants={itemVariants}>
-                                <ThreeDCard
-                                    width="260"
-                                    height={260}
-                                    image={image}
-                                    title={title}
-                                    description={description}
-                                />
+                                <ThreeDCard width="260" height={260} image={image} title={title} description={description} />
                             </motion.div>
                         ))}
                     </motion.div>
-
                 </motion.main>
+
 
                 {/* Tech Stack Section */}
                 <section id="tech" className="relative mx-auto w-full max-w-4xl px-6 py-10">
                     <motion.div
-                        className="rounded-2xl border border-border/40 dark:border-white/10 bg-card/40 dark:bg-white/5 p-4 shadow-sm backdrop-blur sm:p-6"
+                        className="rounded-2xl border border-border/40 bg-card/40 p-4 shadow-sm backdrop-blur sm:p-6 dark:border-white/10 dark:bg-white/5"
                         initial="hidden"
                         whileInView="show"
                         variants={containerVariants}
                     >
-                        <div className="mb-2 inline-flex items-censter gap-2 rounded-full border border-border/40 dark:border-white/10 bg-card/30 dark:bg-white/5 px-3 py-1 text-xs text-foreground/70 dark:text-white/70">
+                        <div className="items-censter mb-2 inline-flex gap-2 rounded-full border border-border/40 bg-card/30 px-3 py-1 text-xs text-foreground/70 dark:border-white/10 dark:bg-white/5 dark:text-white/70">
                             <span className="h-1.5 w-1.5 rounded-full bg-violet-400" />
                             <span>My Tech Stack</span>
                         </div>
@@ -131,7 +123,7 @@ const Home: FC = () => {
                                     whileHover={{ scale: 1.2 }}
                                 >
                                     <span className={`h-1.5 w-1.5 rounded-full ${dot}`} />
-                                   <img src={logo} alt={`${name} logo`} className="h-4 w-4" />
+                                    <img src={logo} alt={`${name} logo`} className="h-4 w-4" />
                                     <span className="font-medium text-gray-600 dark:text-gray-100">{name}</span>
                                 </motion.span>
                             ))}
@@ -142,17 +134,20 @@ const Home: FC = () => {
                 {/* About / Description Section */}
                 <section id="about" className="relative mx-auto w-full max-w-4xl px-6 py-16">
                     <motion.div
-                        className="rounded-2xl border border-border/40 dark:border-white/10 bg-card/40 dark:bg-white/5 p-6 shadow-sm backdrop-blur sm:p-8"
+                        className="rounded-2xl border border-border/40 bg-card/40 p-6 shadow-sm backdrop-blur sm:p-8 dark:border-white/10 dark:bg-white/5"
                         initial="hidden"
                         whileInView="show"
                         viewport={{ once: true, amount: 0.25 }}
                         variants={containerVariants}
                     >
-                        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-border/40 dark:border-white/10 bg-card/30 dark:bg-white/5 px-3 py-1 text-xs text-foreground/70 dark:text-white/70">
+                        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-border/40 bg-card/30 px-3 py-1 text-xs text-foreground/70 dark:border-white/10 dark:bg-white/5 dark:text-white/70">
                             <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
                             <span>About me</span>
                         </div>
-                        <motion.h2 className="text-2xl font-semibold text-balance text-foreground dark:text-white sm:text-3xl" variants={itemVariants}>
+                        <motion.h2
+                            className="text-2xl font-semibold text-balance text-foreground sm:text-3xl dark:text-white"
+                            variants={itemVariants}
+                        >
                             Fullstack Developer & IT Manager with Expertise in PHP, Laravel, and Frontend Technologies
                         </motion.h2>
                         <div className="prose dark:prose-invert mt-4 max-w-none text-foreground/80 dark:text-white/80">

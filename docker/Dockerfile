@@ -37,7 +37,7 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 COPY .. .
 
 # Install PHP dependencies
-RUN composer install --prefer-dist --optimize-autoloader --no-interaction
+RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
 # Install Node.js dependencies and build assets (including SSR)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
